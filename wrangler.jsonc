@@ -1,0 +1,34 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "ai-brand-dsh",
+	"compatibility_date": "2025-10-08",
+	"main": "./workers/app.ts",
+	"upload_source_maps": true,
+	"observability": {
+		"enabled": true
+	},
+	"ai": {
+		"binding": "AI"
+	},
+	"kv_namespaces": [
+		{
+			"binding": "AEO_KV",
+			"id": "78c9a75a3cfa435e85429c62ac06e556"
+		}
+	],
+	"queues": {
+		"producers": [
+			{
+				"queue": "brand-visibility-jobs",
+				"binding": "BRAND_VISIBILITY_QUEUE"
+			}
+		],
+		"consumers": [
+			{
+				"queue": "brand-visibility-jobs",
+				"max_batch_size": 5,
+				"max_concurrency": 10
+			}
+		]
+	}
+}
